@@ -1,0 +1,23 @@
+db:
+  image: mysql:latest
+  environment:
+   - "MYSQL_ROOT_PASSWORD=demo"
+  ports:
+   - "3306"
+
+bootstrap:
+  build: bootstrap
+  environment:
+   - "SQLFILE=initial.sql"
+  links:
+   - db
+
+etl:
+  build: etl
+  links:
+   - db
+
+test:
+  build: test
+  links:
+   - db
