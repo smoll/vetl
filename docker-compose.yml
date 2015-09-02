@@ -1,23 +1,35 @@
-db:
+mysqldb:
   image: mysql:latest
   environment:
    - "MYSQL_ROOT_PASSWORD=demo"
   ports:
    - "3306"
 
+pgdb:
+  build: pgdb
+  environment:
+   - "DB_NAME=database"
+   - "DB_USER=admin"
+   - "DB_PASS=password"
+  ports:
+   - "5432"
+
 bootstrap:
   build: bootstrap
   environment:
    - "SQLFILE=initial.sql"
   links:
-   - db
+   - mysqldb
 
 etl:
   build: etl
+  env_file: etl/.env.test
   links:
-   - db
+   - mysqldb
+   - pgdb
 
 test:
   build: test
   links:
-   - db
+   - mysqldb
+   - pgdb
