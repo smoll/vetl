@@ -1,9 +1,9 @@
 # vetl
-POC: Using Docker + RSpec to acceptance test a Kiba ETL
+[![Circle CI](https://circleci.com/gh/smoll/vetl/tree/master.svg?style=shield)](https://circleci.com/gh/smoll/vetl/tree/master)
 
 ## Why?
 
-Refactoring or replacing legacy ETL code that has poor unit test coverage can be very difficult to do without breaking things. Even when you have good unit test coverage, it can be difficult to know, in an automated fashion, when you have achieved feature parity with your old ETL code.
+Refactoring or replacing legacy ETL code that has poor unit test coverage can be very difficult to do without breaking things. Even when you have good unit test coverage, it can be difficult to know, in an automated way, when you have achieved feature parity with your old ETL code.
 
 In this repo, I hope to give a clear example of how one might acceptance test an ETL by:
 
@@ -32,9 +32,8 @@ at the expense of being slower, and a little further removed from the ETL code i
 0. `make && make log` - Bootstrap the DB with initial data, create all containers. Press Ctrl+C after you see "Database bootstrap complete!"
 0. `make test` - Run the acceptance tests.
 
-### Other targets (for development/debugging)
+##### Other targets (for development/debugging)
 
-0. `make build` - Build all the docker containers with the latest code in Dockerfiles/images. Use this if the initial `make` errors out and you correct the issue.
 0. `make clean` - Clean up any running containers & volumes.
 0. `make logs` - View logs from all docker containers.
 
