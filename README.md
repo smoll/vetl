@@ -41,8 +41,9 @@ at the expense of being slower, and a little further removed from the ETL code i
 ## TODO
 
 0. ~~bootstrap initial data~~
-0. write the acceptance tests
-0. write the ETL code
+0. ~~write the acceptance tests~~
+0. ~~write the ETL code~~
+0. extract a easy-to-write SQL acceptance test DSL from this exercise
 
 ## Known issues
 

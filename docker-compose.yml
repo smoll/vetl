@@ -30,6 +30,7 @@ etl:
 
 test:
   build: test
+  env_file: etl/.env.test
   links:
    - mysqldb
    - pgdb
