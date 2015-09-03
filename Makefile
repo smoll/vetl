@@ -19,8 +19,7 @@ logs:
 
 test:
 	@docker-compose run test rspec spec/pre-etl
-	# Run the ETL; TODO: replace this with something that doesn't depend on parent folder name
-	@docker exec -it vetl_etl_1 kiba migrate_users.etl
-	# @docker-compose run test rspec
+	@docker-compose run etl kiba migrate_users.etl
+	# @docker-compose run test rspec spec/post-etl
 
 .PHONY: all build clean logs test

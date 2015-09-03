@@ -1,2 +1,2 @@
-# JUnit results consumable by Jenkins
+# JUnit results consumable by CI server
 /rspec.xml

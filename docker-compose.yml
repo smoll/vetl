@@ -34,3 +34,6 @@ test:
   links:
    - mysqldb
    - pgdb
+  volumes:
+    # So we can get test results
+    - ./test:/code
