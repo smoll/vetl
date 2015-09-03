@@ -3,7 +3,7 @@
 set -e
 
 # set options
-MYSQL_OPTIONS="-h${DB_PORT_3306_TCP_ADDR} -P${DB_PORT_3306_TCP_PORT} -uroot -p${DB_ENV_MYSQL_ROOT_PASSWORD}"
+MYSQL_OPTIONS="-h${MYSQLDB_PORT_3306_TCP_ADDR} -P${MYSQLDB_PORT_3306_TCP_PORT} -uroot -p${MYSQLDB_ENV_MYSQL_ROOT_PASSWORD}"
 
 # check to see if we should skip import
 if [ ! -z ${SKIP_IMPORT} ]

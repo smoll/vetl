@@ -29,9 +29,7 @@ at the expense of being slower, and a little further removed from the ETL code i
 
 ## Usage
 
-### Make targets
-
-0. `make` - Bootstrap the DB with initial data, create all containers.
+0. `make && make log` - Bootstrap the DB with initial data, create all containers. Press Ctrl+C after you see "Database bootstrap complete!"
 0. `make test` - Run the acceptance tests.
 
 ### Other targets (for development/debugging)
@@ -43,9 +41,16 @@ at the expense of being slower, and a little further removed from the ETL code i
 ## TODO
 
 0. ~~bootstrap initial data~~
-0. write the acceptance tests
-0. write the ETL code
+0. ~~write the acceptance tests~~
+0. ~~write the ETL code~~
+0. extract a easy-to-write SQL acceptance test DSL from this exercise
+
+## Known issues
+
+0. Docker Compose "ups" containers asynchronously. Therefore, we need to block on the source DB table(s) being created _before_ proceeding with running the ETL/acceptance tests.
 
 ## Credits
 
 Thanks to mbentley for his [docker-mysql bootstrap example](https://github.com/mbentley/docker-db_bootstrap)
+
+Thanks to Glenn Goodrich for his article [Kiba: ETL Done Right](http://www.sitepoint.com/kiba-etl-done-right/)

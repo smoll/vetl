@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
+
+require "user_source"
+require "user_destination"
+require "filter_null"
+
+mysql_url = ENV["MYSQL_URL"]
+
+source UserSource, mysql_url
+
+start_time = Time.now
+pre_process do
+  puts "*** START ACCOUNT MIGRATION #{start_time}***"
+end
+
+transform(FilterNull, column: "salesRepEmployeeNumber")
+
+transform do |row|
+  puts "OK"
+  newrow = {}
+  newrow[:customerName] = row[:customerName]
+  newrow[:contactLastName] = row[:contactLastName]
+  newrow[:contactFirstName] = row[:contactFirstName]
+  newrow[:country] = row[:country]
+  newrow[:salesRepEmployeeNumber] = row[:salesRepEmployeeNumber]
+  newrow[:creditLimit] = row[:creditLimit]
+
+  newrow
+end
+
+post_process do
+  end_time = Time.now
+  duration_in_minutes = (end_time - start_time) / 60
+  puts "*** End ACCOUNT MIGRATION #{end_time}***"
+  puts "*** Duration (min): #{duration_in_minutes.round(2)}"
+end
+
+destination UserDestination, ENV["PG_URL"]
