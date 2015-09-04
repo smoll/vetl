@@ -16,8 +16,6 @@ pgdb:
 
 bootstrap:
   build: bootstrap
-  environment:
-   - "SQLFILE=initial.sql"
   links:
    - mysqldb
 

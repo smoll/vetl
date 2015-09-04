@@ -11,20 +11,6 @@ then
   exec "$@"
 fi
 
-# check to make sure the SQLFILE environment variable is defined
-if [ -z ${SQLFILE} ]
-then
-  echo "The environment variable SQLFILE is undefined; exiting"
-  exit 1
-fi
-
-# check to make sure there is a .sql file specified to import
-if [ ! -f /${SQLFILE} ]
-then
-  echo "${SQLFILE} is not found; exiting"
-  exit 1
-fi
-
 # check to make sure the db is accessible before importing data
 while [ $(mysql --connect-timeout=1 ${MYSQL_OPTIONS} -e "show databases;" > /dev/null 2>&1; echo $?) -ne 0 ]
 do
@@ -37,8 +23,8 @@ echo -e "\nMySQL is now accessible"'!'"\n"
 echo "Pre import databases:"
 mysql -t ${MYSQL_OPTIONS} -e "show databases;" 2> /dev/null
 
-echo -e "\nImporting ${SQLFILE}..."
-mysql ${MYSQL_OPTIONS} < /${SQLFILE} 2> /dev/null
+echo -e "\nImporting all .sql files..."
+cat *.sql | mysql ${MYSQL_OPTIONS} 2> /dev/null
 echo -e "Import complete"'!'"\n"
 
 echo "Post import databases:"
