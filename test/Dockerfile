@@ -15,6 +15,4 @@ RUN bundle install
 # Copy the rest of the test code
 COPY . $CODE_HOME
 
-RUN echo testing
-
 CMD ["sleep","infinity"]

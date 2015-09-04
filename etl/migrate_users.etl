@@ -6,10 +6,9 @@ require "user_source"
 require "user_destination"
 require "filter_null"
 
-mysql_url = ENV["MYSQL_URL"]
+source UserSource, ENV["MYSQL_URL"]
 
-source UserSource, mysql_url
-
+rows_processed = 0
 start_time = Time.now
 pre_process do
   puts "*** START ACCOUNT MIGRATION #{start_time}***"
@@ -18,7 +17,8 @@ end
 transform(FilterNull, column: "salesRepEmployeeNumber")
 
 transform do |row|
-  puts "OK"
+  rows_processed += 1
+  print "."
   newrow = {}
   newrow[:customerName] = row[:customerName]
   newrow[:contactLastName] = row[:contactLastName]
@@ -33,8 +33,10 @@ end
 post_process do
   end_time = Time.now
   duration_in_minutes = (end_time - start_time) / 60
-  puts "*** End ACCOUNT MIGRATION #{end_time}***"
-  puts "*** Duration (min): #{duration_in_minutes.round(2)}"
+  puts ""
+  puts "*** END ACCOUNT MIGRATION #{end_time}***"
+  puts "*** Duration (min): #{duration_in_minutes.round(2)}***"
+  puts "*** Rows processed: #{rows_processed}***"
 end
 
 destination UserDestination, ENV["PG_URL"]
