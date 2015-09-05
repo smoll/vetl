@@ -8,9 +8,7 @@ mysqldb:
 pgdb:
   build: pgdb
   environment:
-   - "DB_NAME=database"
-   - "DB_USER=admin"
-   - "DB_PASS=password"
+   - "POSTGRES_PASSWORD=mypass"
   ports:
    - "5432"
 
