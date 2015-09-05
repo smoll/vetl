@@ -9,7 +9,6 @@ dependencies:
 test:
   override:
     - make
-    - sleep 10
     - make test
     - mkdir -p $CIRCLE_TEST_REPORTS/rspec
     - cp test/*.xml $CIRCLE_TEST_REPORTS/rspec/
