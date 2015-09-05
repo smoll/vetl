@@ -1,5 +1,5 @@
 mysqldb:
-  image: mysql:latest
+  build: mysqldb
   environment:
    - "MYSQL_ROOT_PASSWORD=demo"
   ports:
@@ -13,11 +13,6 @@ pgdb:
    - "DB_PASS=password"
   ports:
    - "5432"
-
-bootstrap:
-  build: bootstrap
-  links:
-   - mysqldb
 
 etl:
   build: etl
