@@ -7,7 +7,12 @@ require "uri"
 require "bigdecimal"
 require "bigdecimal/util"
 
+# DB client connections in #pg and #mysql
+require_relative "helpers"
+
 RSpec.configure do |config|
+  config.include Helpers
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
@@ -20,24 +25,4 @@ RSpec.configure do |config|
   config.warnings = true
   config.order = :random
   Kernel.srand config.seed
-end
-
-def mysql
-  @mysql ||= Mysql2::Client.new(connect_hash(ENV["MYSQL_URL"]))
-end
-
-def pg
-  @pg ||= PG.connect(ENV["PG_URL"])
-end
-
-# TODO: move this to a private module method
-def connect_hash(url)
-  u = URI.parse(url)
-  {
-    host: u.host,
-    username: u.user,
-    password: u.password,
-    port: u.port,
-    database: u.path[1..-1]
-  }
 end
